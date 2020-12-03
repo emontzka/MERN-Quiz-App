@@ -1,6 +1,6 @@
 {
-    "mongoURI": "mongodb+srv://Quiz-Admin:KxmFhZ4rIsVi5Wlo@quiz-app-cluster.lxf6e.mongodb.net/Quiz-app-cluster?retryWrites=true&w=majority"
-
+    "mongoURI": "mongodb+srv://Quiz-Admin:KxmFhZ4rIsVi5Wlo@quiz-app-cluster.lxf6e.mongodb.net/Quiz-app-cluster?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
 }
 
 //db: Quiz-app-cluster
