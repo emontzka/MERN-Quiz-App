@@ -7,12 +7,14 @@ const { body, validationResult } = require("express-validator");
 const Qa = require("../../models/Qa");
 const User = require("../../models/User");
 
-// @route   GET api/qa
-// @desc    Test Route
-// @access  Public
-router.get("/", (req, res) => res.send("QA Route"));
-
 //get all qas by user,
+// @route   GET api/qa
+// @desc    get all qas
+// @access  Private
+router.get("/", auth, async (req, res) => {
+  const qas = await Qa.find({ user: req.user.id });
+  res.json(qas);
+});
 
 // @route   POST api/qa
 // @desc    Add/Update QA
@@ -21,7 +23,6 @@ router.get("/", (req, res) => res.send("QA Route"));
 router.post(
   "/",
   [auth, [body("question", "Question is required").not().isEmpty()]],
-  //   [auth],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -29,20 +30,16 @@ router.post(
     }
 
     const { question, answer, taxonomies } = req.body;
-    //build qa object
-    const qaFields = {};
-    qaFields.question = question;
-    if (answer) qaFields.answer = answer;
-    if (taxonomies) qaFields.taxonomies = taxonomies;
+    console.log(req.user);
 
     try {
-      let qa = await Qa.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: qaFields },
-        { new: true, upsert: true }
-      );
-
-      res.json(qa);
+      let qa = new Qa();
+      if (answer) qa.answer = answer;
+      if (question) qa.question = question;
+      if (taxonomies) qa.taxonomies = taxonomies;
+      qa.user = req.user.id;
+      await qa.save();
+      await res.json(qa);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
@@ -51,8 +48,6 @@ router.post(
 );
 
 //delete qa
-
-//update qa
 
 //add pause to date (phase two)
 

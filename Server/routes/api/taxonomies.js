@@ -8,9 +8,17 @@ const { check, validationResult } = require("express-validator");
 // @access  Public
 router.get("/", (req, res) => res.send("Taxonomy Route"));
 
-// create and update taxonomy
+// create taxonomy
 
-// remove taxonomy
+// get all taxonomies
+
+// update taxonomy
+
+//add taxonomy to qa
+
+// remove taxonomy from qa
+
+// delete taxonomy
 
 // get all users taxonomies
 
