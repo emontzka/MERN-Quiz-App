@@ -5,7 +5,7 @@ const TaxSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  taxonomy: String,
+  name: String,
 });
 
 module.exports = Taxonomy = mongoose.model("taxonomy", TaxSchema);

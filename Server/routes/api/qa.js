@@ -5,7 +5,7 @@ const auth = require("../../middleware/auth");
 const { body, validationResult } = require("express-validator");
 
 const Qa = require("../../models/Qa");
-const User = require("../../models/User");
+// const User = require("../../models/User");
 
 //get all qas by user,
 // @route   GET api/qa
@@ -30,7 +30,6 @@ router.post(
     }
 
     const { question, answer, taxonomies } = req.body;
-    console.log(req.user);
 
     try {
       let qa = new Qa();
